@@ -30,7 +30,15 @@ const page = () => {
     localStorage.setItem("wishlist", JSON.stringify(wishlistdata));
   };
 
-  return <Bucket data={wishlist} removedata={removeItem} />;
+  return  (
+    <div className="max-w-7xl mx-auto p-6 min-h-screen bg-gray-50">
+      <h1 className="text-xl md:text-3xl font-bold mb-6 text-gray-800">
+        Wishlist
+      </h1>
+      <Bucket data={wishlist} removedata={removeItem} />;
+    </div>
+  );
+  
 };
 
 export default page;
