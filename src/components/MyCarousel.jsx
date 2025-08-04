@@ -33,7 +33,7 @@ export function MyCarousel() {
     >
       <CarouselContent className="flex">
         {images.map((imgsrc, index) => (
-          <CarouselItem key={index} className="basis-full relative h-40 lg:h-[400px]">
+          <CarouselItem key={index} className="basis-full relative h-40 md:h-[250px] lg:h-[400px]">
             <Image
               src={imgsrc}
               alt="Fashion Banner"

@@ -7,24 +7,29 @@ import { BiLogIn } from "react-icons/bi";
 import { TbShoppingBag } from "react-icons/tb";
 
 const ProfilePage = () => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({
+    name:"",
+    mobile:"",
+    address:""
+  });
 
   // simulate login check from localStorage
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
+    const storedUser = (localStorage.getItem("user")) || [];
+    const data = JSON.parse(storedUser)
+    setUser(data[0]);
   }, []);
 
+  console.log("THi is  ",user)
+
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
+    <div className="min-h-screen bg-gray-100 p-6 md:w-3xl mx-auto">
       <div className="bg-white p-4 rounded-xl shadow flex items-center gap-4">
         <FaUserCircle size={50} className="text-gray-500" />
-        {user ? (
+        {user.name ? (
           <div>
-            <h2 className="font-bold text-lg text-gray-800">{user.name}</h2>
-            <p className="text-sm text-gray-500">{user.email}</p>
+            <h2 className="font-bold text-lg text-gray-800 uppercase">{user.name}</h2>
+            <p className="text-sm text-gray-500">{user.mobile}</p>
           </div>
         ) : (
           <div>

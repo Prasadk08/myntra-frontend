@@ -45,14 +45,16 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="bg-[#F1FAEE] flex w-screen h-16  flex-wrap items-center justify-between md:px-6 fixed top-0 shadow-md z-10">
-        <Image
-          className="lg:mx-10 mx-4"
-          src="/mytralogo.png"
-          alt="Logo"
-          width={35}
-          height={35}
-        />
+      <nav className="bg-[#F1FAEE] flex w-screen h-16 flex-wrap items-center justify-between md:px-6 fixed top-0 shadow-md z-10">
+        <Link href="/">
+          <Image
+            className="lg:mx-10 mx-4"
+            src="/mytralogo.png"
+            alt="Logo"
+            width={35}
+            height={35}
+          />
+        </Link>
         <div className="navlinks hidden md:flex md:ml-10  xl:ml-30 items-center">
           <Link
             className="text-xs lg:text-[15px] font-bold px-2 lg:px-5"
@@ -84,7 +86,7 @@ const Navbar = () => {
             type="text"
             value={search}
             onChange={handleChange}
-            className="px-6 py-2 bg-amber-100 rounded-xl w-[80x] sm:w-[120px] md:w-[200px]"
+            className="px-6 py-1 bg-amber-100 rounded-xl mx-2 w-[150px] sm:w-[180px] md:w-[200px]"
             placeholder="search here"
           />
           <button
@@ -101,25 +103,9 @@ const Navbar = () => {
       </ul> */}
         </div>
         <div className="hidden md:flex nav-icons">
-          <DropdownMenu>
-            <DropdownMenuTrigger>
-              <CgProfile size={25} />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                <Link className="text-[15px] font-bold px-5" href={"/signup"}>
-                  Create Account
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Link className="text-[15px] font-bold px-5" href={"/login"}>
-                  Login
-                </Link>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <Link className="font-bold p-2 lg:px-5" href={"/profile"}>
+            <CgProfile size={25} className="text-lg sm:text-lg md:text-xl" />
+          </Link>
           {/* <Link className="text-[15px] font-bold px-5" href={""}>
           PROFILE
         </Link> */}
@@ -145,7 +131,10 @@ const Navbar = () => {
           <IoHeart className="w-6 h-6" color="red" />
           <span className="text-xs">Wishlist</span>
         </Link>
-        <Link href="/showitem/cart" className="flex flex-col items-center text-gray-600">
+        <Link
+          href="/showitem/cart"
+          className="flex flex-col items-center text-gray-600"
+        >
           {/* <BagIcon className="w-6 h-6" /> */}
           <IoBagHandle className="w-6 h-6" />
           <span className="text-xs">Cart</span>

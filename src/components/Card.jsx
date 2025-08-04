@@ -22,8 +22,8 @@ const Card = ({ src, type }) => {
   ];
 
   return (
-    <div className="h-42 w-22 md:h-75 md:w-60 rounded-2xl border md:m-5 overflow-hidden transform transition duration-300 hover:scale-105 shadow-2xl">
-      <div className="h-35 w-22 md:h-65 md:w-60 relative">
+    <div className="h-42 w-30 md:h-58 md:w-45 lg:h-70 lg:w-55 rounded-2xl border md:m-5 overflow-hidden transform transition duration-300 hover:scale-105 shadow-2xl">
+      <div className="h-35 w-30 md:h-50 md:w-full lg:h-60 relative">
         <Image
           src={src}
           alt="card-image"

@@ -27,9 +27,9 @@ const HeroSection = () => {
     <div className="min-h-screen w-full">
       <MyCarousel />
       <div className="all-cards">
-        <div className="grid w-screen max-w-6xl grid-cols-3 md:grid-cols-4 gap-2 mx-auto">
+        <div className="grid w-screen max-w-6xl grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-2 mx-auto">
           {cardImages.map((imagesrc, index) => (
-            <Link href="/products" key={index} className="h-40 w-22 md:h-75 md:w-60 mx-auto my-2" >
+            <Link href="/products" key={index} className="h-40 w-35 md:h-58 md:w-45 lg:h-70 lg:w-50 lg:p-2 my-2" >
             <Card src={imagesrc}type={index}  />
             </Link>
           ))}
