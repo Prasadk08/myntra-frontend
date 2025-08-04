@@ -10,19 +10,22 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { getSearchData } from "@/redux/features/searchdata";
+import { filterRange, getSearchData } from "@/redux/features/searchdata";
 import { useDispatch, useSelector } from "react-redux";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { CgProfile } from "react-icons/cg";
 import { IoHeart } from "react-icons/io5";
 import { IoBagHandle } from "react-icons/io5";
 import { HomeIcon, UserIcon } from "lucide-react";
+import { CiFilter } from "react-icons/ci";
+import { filteralldata } from "@/redux/features/alldata";
 
 const Navbar = () => {
   const [search, setSearch] = useState("");
   const dispatch = useDispatch();
   const router = useRouter();
+  const pathname = usePathname()
 
   const handleChange = (e) => {
     setSearch(e.target.value);
@@ -31,8 +34,9 @@ const Navbar = () => {
     try {
       const result = await dispatch(getSearchData(search)).unwrap();
 
+
       if (result.length > 0) {
-        router.push("/products");
+        router.push("/searchdata");
       } else {
         toast("ITEM NOT FOUND!", {
           icon: "🙁",
@@ -42,6 +46,16 @@ const Navbar = () => {
       console.log("Error fetching data:", err);
     }
   };
+
+    const handleRange = (data)=>{
+      const [min,max]=data.split('-').map(Number)
+      if(pathname=="/products"){
+        dispatch(filteralldata([min,max]))
+      }else{
+        dispatch(filterRange([min,max]))
+      }
+  
+    }
 
   return (
     <>
@@ -146,6 +160,21 @@ const Navbar = () => {
           <UserIcon className="w-6 h-6" />
           <span className="text-xs">Profile</span>
         </Link>
+        {(pathname=="/products" || pathname=="/searchdata") && ( <DropdownMenu>
+          <DropdownMenuTrigger className="flex flex-col items-center text-gray-600">
+            <CiFilter className="w-6 h-6" />
+            <span className="text-xs">Filter</span>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuLabel>Price</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={()=>handleRange("0-1000")}>0-1000</DropdownMenuItem>
+            <DropdownMenuItem onClick={()=>handleRange("1000-2000")}>1000-2000</DropdownMenuItem>
+            <DropdownMenuItem onClick={()=>handleRange("2000-3000")}>2000-3000</DropdownMenuItem>
+            <DropdownMenuItem onClick={()=>handleRange("3000-5000")}>3000-5000</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>)}
+       
       </div>
     </>
   );

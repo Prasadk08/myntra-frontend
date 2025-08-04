@@ -13,14 +13,13 @@ const ProfilePage = () => {
     address:""
   });
 
-  // simulate login check from localStorage
+
   useEffect(() => {
     const storedUser = (localStorage.getItem("user")) || [];
     const data = JSON.parse(storedUser)
     setUser(data[0]);
   }, []);
 
-  console.log("THi is  ",user)
 
   return (
     <div className="min-h-screen bg-gray-100 p-6 md:w-3xl mx-auto">

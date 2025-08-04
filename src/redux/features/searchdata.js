@@ -17,12 +17,13 @@ const searchdataSlice = new createSlice({
   initialState: {
     searchdata: [],
     search: "",
-    loading: "",
+    loading: false,
     error: "",
   },
   reducers: {
     filterRange: (state, action) => {
       const [min, max] = action.payload;
+
       state.searchdata = state.searchdata.filter(
         (item) => item.price >= min && item.price <= max
       );
@@ -31,19 +32,20 @@ const searchdataSlice = new createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getSearchData.pending, (state) => {
-        state.loading = "true";
+        state.loading = true;
       })
       .addCase(getSearchData.fulfilled, (state, action) => {
-        state.loading = "false";
+        state.loading = false;
         state.error = "";
         state.searchdata = action.payload;
       })
       .addCase(getSearchData.rejected, (state, action) => {
+        state.loading = false;
         state.error = action.error.message;
       });
   },
 });
 
-export const {filterRange}=searchdataSlice.actions
+export const { filterRange } = searchdataSlice.actions;
 
 export default searchdataSlice.reducer;

@@ -1,5 +1,7 @@
 'use client'
+import { filteralldata } from "@/redux/features/alldata";
 import { filterRange, getSearchData } from "@/redux/features/searchdata";
+import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
@@ -7,6 +9,7 @@ const SideNavbar = () => {
   const[selectedBrands,setSelectedBrands]= useState([])
 
   const dispatch = useDispatch()
+  const pathname = usePathname()
 
   const handleBrands = (e)=>{
     const value= e.target.value
@@ -18,12 +21,14 @@ const SideNavbar = () => {
   const handleRange = (e)=>{
     const data = e.target.value
     const [min,max]=data.split('-').map(Number)
-    dispatch(filterRange([min,max]))
+    if(pathname=="/products"){
+      dispatch(filteralldata([min,max]))
+    }else{
+      dispatch(filterRange([min,max]))
+    }
 
   }
-  useEffect(()=>{
-    dispatch(getSearchData(selectedBrands[selectedBrands.length-1]))
-  },[selectedBrands])
+
   return (
     <div className="side-navbar hidden md:block h-screen bg-[#1d2f6f] w-64 p-4 shadow-md overflow-y-auto fixed">
       {/* Categories Brands */}

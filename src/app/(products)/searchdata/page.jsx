@@ -4,23 +4,22 @@ import React, { useEffect, useState } from "react";
 import SideNavbar from "@/components/SideNavbar";
 import Link from "next/link";
 import Loading from "@/app/loading/page";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import Showdata from "@/components/Showdata";
-import { getalldata } from "@/redux/features/alldata";
 
 const Page = () => {
- const dispatch = useDispatch()
-  const{alldata,loading}=useSelector((state)=> state.alldata)
 
-  useEffect(()=>{
-    dispatch(getalldata())
-  },[dispatch])
+  const { searchdata: products, loading } = useSelector(
+    (state) => state.searchdata
+  );
 
-  
+
   if (loading) return <Loading />;
 
-  return <Showdata products={alldata} />;
+  return (
+    <Showdata products={products} />
+  );
 };
 
 export default Page;
