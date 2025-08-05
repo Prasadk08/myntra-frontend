@@ -8,7 +8,7 @@ const Showdata = ({products}) => {
   return (
     <div className="flex">
       <SideNavbar />
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-6 md:ml-64">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-6 md:ml-44 lg:ml-64">
         {products.map((product, index) => (
           <Link href={`/showitem/${product.id}`} key={index}>
             <div className="bg-white p-4 rounded shadow transition-transform hover:scale-105 hover:shadow-lg">

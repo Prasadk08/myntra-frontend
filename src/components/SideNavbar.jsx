@@ -30,7 +30,7 @@ const SideNavbar = () => {
   }
 
   return (
-    <div className="side-navbar hidden md:block h-screen bg-[#1d2f6f] w-64 p-4 shadow-md overflow-y-auto fixed">
+    <div className="side-navbar hidden md:flex flex-col md:w-44 lg:w-64 h-screen bg-[#1d2f6f] p-4 shadow-md overflow-y-auto fixed">
       {/* Categories Brands */}
       <div className="brands mb-6">
         <p className="font-bold text-lg text-white mb-3">Brands</p>
