@@ -32,7 +32,8 @@ const Navbar = () => {
   };
   const handlesubmit = async (e) => {
     try {
-      const result = await dispatch(getSearchData(search)).unwrap();
+      const data = search.toLowerCase()
+      const result = await dispatch(getSearchData(data)).unwrap();
 
 
       if (result.length > 0) {
