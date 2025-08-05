@@ -8,18 +8,18 @@ import { TbShoppingBag } from "react-icons/tb";
 
 const ProfilePage = () => {
   const [user, setUser] = useState({
-    name:"",
-    mobile:"",
-    address:""
+    name: "",
+    mobile: "",
+    address: "",
   });
 
-
   useEffect(() => {
-    const storedUser = (localStorage.getItem("user")) || [];
-    const data = JSON.parse(storedUser)
-    setUser(data[0]);
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      const data = JSON.parse(storedUser);
+      setUser(data[0]);
+    }
   }, []);
-
 
   return (
     <div className="min-h-screen bg-gray-100 p-6 md:w-3xl mx-auto">
@@ -27,7 +27,9 @@ const ProfilePage = () => {
         <FaUserCircle size={50} className="text-gray-500" />
         {user.name ? (
           <div>
-            <h2 className="font-bold text-lg text-gray-800 uppercase">{user.name}</h2>
+            <h2 className="font-bold text-lg text-gray-800 uppercase">
+              {user.name}
+            </h2>
             <p className="text-sm text-gray-500">{user.mobile}</p>
           </div>
         ) : (
