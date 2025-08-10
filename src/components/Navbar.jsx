@@ -55,7 +55,6 @@ const Navbar = () => {
       }else{
         dispatch(filterRange([min,max]))
       }
-  
     }
 
   return (

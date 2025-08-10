@@ -6,13 +6,13 @@ export const getalldata = createAsyncThunk(
   "/alldata/getalldata",
   async () => {
     let res = await axios.get(
-      `https://fakestoreapi.in/api/products`
+      "http://localhost:8080/getallproduct"
     );
-    return res.data.products;
+    return res.data;
   }
 );
 
-const allDataSlice = new createSlice({
+const allDataSlice = createSlice({
   name: "alldata",
   initialState: {
     alldata: [],

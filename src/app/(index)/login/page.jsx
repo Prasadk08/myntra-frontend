@@ -1,26 +1,35 @@
 "use client";
+import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
 
+
 const LoginPage = () => {
-  const [mobile, setMobile] = useState("");
+  const [loginData, setLogindata] = useState({
+    mobile:"",
+    password:""
+  });
   const router = useRouter()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    let userdata = JSON.parse(localStorage.getItem("user")) || []
-    let check=false
-    if(userdata){
-      check = userdata.filter((data)=> data.mobile==mobile)
-    }
-    if(check){
+    try{
+      let res = await axios.post("http://localhost:8080/login",loginData)
+      localStorage.setItem("token",res.data.token)
       toast.success("Login Successful")
-      localStorage.setItem("currentuser",mobile)
       router.push("/")
-    }else{
-      toast.error("Wrong credentials")
+    }catch(e){
+      if(e.response && e.response.status==400){
+        toast.error("Mobile Number is not registered")
+      }else if(e.response && e.response.status==401){
+        toast.error("Wrong Password")
+      }else{
+        toast.error("Something went Wrong")
+        console.log("Something went wrong ",e)
+      }
+
     }
 
   };
@@ -39,9 +48,23 @@ const LoginPage = () => {
             <input
               type="tel"
               id="mobile"
-              value={mobile}
-              onChange={(e) => setMobile(e.target.value)}
+              value={loginData.module}
+              onChange={(e) => setLogindata({...loginData,mobile:e.target.value})}
               placeholder="Enter your mobile number"
+              required
+              className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-pink-500 focus:border-pink-500 text-base"
+            />
+          </div>
+          <div>
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              value={loginData.password}
+              onChange={(e) => setLogindata({...loginData,password:e.target.value})}
+              placeholder="**************"
               required
               className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-pink-500 focus:border-pink-500 text-base"
             />

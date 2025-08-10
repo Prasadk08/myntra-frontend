@@ -14,7 +14,7 @@ const ProfilePage = () => {
   });
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
+    const storedUser = localStorage.getItem("curruser");
     if (storedUser) {
       const data = JSON.parse(storedUser);
       setUser(data[0]);

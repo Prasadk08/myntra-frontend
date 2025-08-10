@@ -1,21 +1,23 @@
 "use client";
 import axios from "axios";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 const page = () => {
   const { id } = useParams();
   const [product, setProduct] = useState({});
-  const [isWishlisted, setIsWishlisted]=useState(false)
-  const [addedCart, setaddedCart]=useState(false)
+  const [isWishlisted, setIsWishlisted] = useState(false);
+  const [addedCart, setaddedCart] = useState(false);
+  const router = useRouter();
+
   useEffect(() => {
     const callingData = async () => {
       try {
         const res = await axios.get(
-          `https://fakestoreapi.in/api/products/${id}`
+          `http://localhost:8080/getoneproduct/${id}`
         );
-        setProduct(() => res.data.product);
+        setProduct(() => res.data);
       } catch (e) {
         console.log(e);
       }
@@ -27,32 +29,69 @@ const page = () => {
     const olddata = JSON.parse(localStorage.getItem("wishlist")) || [];
     const alreadyExists = olddata.some((item) => item.id === product.id);
     const olddatacart = JSON.parse(localStorage.getItem("wishlist")) || [];
-    const alreadyExistscart = olddatacart.some((item) => item.id === product.id);
+    const alreadyExistscart = olddatacart.some(
+      (item) => item.id === product.id
+    );
     setIsWishlisted(alreadyExists);
-    setaddedCart(alreadyExistscart)
+    setaddedCart(alreadyExistscart);
   }, [product]);
 
-  const handleWishList = (product) => {
-    const olddata = JSON.parse(localStorage.getItem("wishlist")) || [];
-    const alreadyExists = olddata.some((item) => item.id === product.id);
-    if(!alreadyExists){
-      olddata.push(product);
-      localStorage.setItem("wishlist", JSON.stringify(olddata));
-      setIsWishlisted(true);
-      toast.success("Item added to Wishlist")
+  const handleWishList = async (product) => {
+    let token = localStorage.getItem("token")
+    try {
+      if (!token) {
+        toast.success("Login is required");
+        router.push("/login");
+        return;
+      }
+      let res = await axios.post(
+        `http://localhost:8080/user/addtowish/${product._id}`,
+        {},
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      toast.success("Item added to Wishlist");
+    } catch (e) {
+      if(e.response && e.response.status==401){
+        toast.error("Please Login First")
+        router.push("/login")
+        return
+      }
+      toast.error("Something went wrong");
+      console.log("something went wrong while adding in wishlist ", e);
     }
-  
   };
-  const handleCart = (product) => {
-    const olddata = JSON.parse(localStorage.getItem("cart")) || [];
-    const alreadyExists = olddata.some((item) => item.id === product.id);
-    if(!alreadyExists){
-      olddata.push(product);
-      localStorage.setItem("cart", JSON.stringify(olddata));
-      setaddedCart(true);
-      toast.success("Item added to Cart")
+  const handleCart = async(product) => {
+
+    let token = localStorage.getItem("token")
+    try {
+      if (!token) {
+        toast.success("Login is required");
+        router.push("/login");
+        return;
+      }
+      let res = await axios.post(
+        `http://localhost:8080/user/addtocart/${product._id}`,
+        {},
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      toast.success("Item added to cart");
+    } catch (e) {
+      if(e.response && e.response.status==401){
+        toast.error("Please Login First")
+        router.push("/login")
+        return
+      }
+      toast.error("Something went wrong");
+      console.log("something went wrong while adding in cart ", e);
     }
-  
   };
   return (
     <>
@@ -96,10 +135,13 @@ const page = () => {
               className="p-2 md:px-20 md:py-4 text-base bg-[#FF527B] text-white mx-2 md:font-bold"
               onClick={() => handleCart(product)}
             >
-               {addedCart ? "ADDED TO BAG" : "ADD TO BAG"}
+              {addedCart ? "ADDED TO BAG" : "ADD TO BAG"}
             </button>
-            <button className="p-2 md:px-20 md:py-4 text-base bg-[#FF527B] text-white mx-2 md:font-bold" onClick={() => handleWishList(product)}>
-               {isWishlisted ? "WISHLISTED" : "ADD TO WISHLIST"}
+            <button
+              className="p-2 md:px-20 md:py-4 text-base bg-[#FF527B] text-white mx-2 md:font-bold"
+              onClick={() => handleWishList(product)}
+            >
+              {isWishlisted ? "WISHLISTED" : "ADD TO WISHLIST"}
             </button>
           </div>
           <div>

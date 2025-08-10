@@ -3,37 +3,10 @@ import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 import toast from "react-hot-toast";
 
-const Bucket = ({ data, removedata, total }) => {
+const Bucket = ({ data, removedata, total,handleorder }) => {
   const pathname = usePathname();
-const router = useRouter()
+  const router = useRouter()
 
-  const handlePlaceOrder = () => {
-    const user = JSON.parse(localStorage.getItem("currentuser"));
-    if (!user) {
-      toast.error("Please login to place order");
-      router.push("/login");
-      return;
-    }
-
-    const existingOrders = JSON.parse(localStorage.getItem("orders")) || [];
-    const newOrder = {
-      id: Date.now(),
-      items: data,
-      total,
-      date: new Date().toLocaleString(),
-    };
-
-    localStorage.setItem(
-      "orders",
-      JSON.stringify([...existingOrders, newOrder])
-    );
-
-    localStorage.removeItem("cart");
-
-    router.push("/myorders");
-
-    toast.success("Order placed successfully!");
-  };
 
   return (
     <>
@@ -46,7 +19,7 @@ const router = useRouter()
             {data &&
               data.map((item) => (
                 <div
-                  key={item.id}
+                  key={item._id}
                   className="flex items-center justify-between bg-white p-4 rounded-xl shadow"
                 >
                   <div className="flex items-center gap-4">
@@ -89,7 +62,7 @@ const router = useRouter()
               </div>
               <button
                 className="w-full mt-6 bg-[#FF527B] hover:bg-[#e0466d] text-white font-bold py-3 rounded-full transition"
-                onClick={handlePlaceOrder}
+                onClick={handleorder}
               >
                 Place Order
               </button>

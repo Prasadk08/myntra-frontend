@@ -3,16 +3,25 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import Bucket from "@/components/Bucket";
+import axios from "axios";
 
 const page = () => {
   const [wishlist, setwishlist] = useState([]);
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
-    const storedData = localStorage.getItem("wishlist");
-    const wishlistdata = storedData ? JSON.parse(storedData) : [];
+    const callingData = async()=>{
+      let token = localStorage.getItem("token")
+      let res = await axios.get("http://localhost:8080/show/wishlist",{
+        headers:{
+          authorization:`Bearer ${token}`
+        }
+      })
 
-    setwishlist(wishlistdata);
+       setwishlist(res.data);
+    }
+    callingData()
+   
   }, []);
 
   // useEffect(() => {
