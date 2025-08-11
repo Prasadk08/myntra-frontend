@@ -16,6 +16,7 @@ const page = () => {
       try {
         const res = await axios.get(
           `https://myntra-backend-git5.onrender.com/getoneproduct/${id}`
+          // `http://localhost:8080/getoneproduct/${id}`,
         );
         setProduct(() => res.data);
       } catch (e) {
@@ -95,7 +96,7 @@ const page = () => {
   };
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 max-w-7xl mx-auto h-screen p-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 max-w-7xl mx-auto h-full p-4">
         <div className="flex flex-col items-center px-5">
           <div className="h-50 w-full md:h-100 mt-20 flex justify-center items-center">
             <img

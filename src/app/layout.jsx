@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
         <ProviderWrapper>
           <Navbar />
           <Toaster position="top-center" reverseOrder={false} />
-          <main className="flex-grow relative pt-16">{children}</main>
+          <main className="flex-grow relative pt-16 min-h-screen">{children}</main>
           <Footer />
         </ProviderWrapper>
       </body>
