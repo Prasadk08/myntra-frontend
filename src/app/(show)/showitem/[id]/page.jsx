@@ -15,7 +15,7 @@ const page = () => {
     const callingData = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8080/getoneproduct/${id}`
+          `https://myntra-backend-git5.onrender.com/getoneproduct/${id}`
         );
         setProduct(() => res.data);
       } catch (e) {
@@ -45,7 +45,7 @@ const page = () => {
         return;
       }
       let res = await axios.post(
-        `http://localhost:8080/user/addtowish/${product._id}`,
+        `https://myntra-backend-git5.onrender.com/user/addtowish/${product._id}`,
         {},
         {
           headers: {
@@ -74,7 +74,7 @@ const page = () => {
         return;
       }
       let res = await axios.post(
-        `http://localhost:8080/user/addtocart/${product._id}`,
+        `https://myntra-backend-git5.onrender.com/user/addtocart/${product._id}`,
         {},
         {
           headers: {

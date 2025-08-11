@@ -6,7 +6,7 @@ export const getalldata = createAsyncThunk(
   "/alldata/getalldata",
   async () => {
     let res = await axios.get(
-      "http://localhost:8080/getallproduct"
+      "https://myntra-backend-git5.onrender.com/getallproduct"
     );
     return res.data;
   }

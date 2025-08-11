@@ -16,7 +16,7 @@ const LoginPage = () => {
   const handleSubmit = async(e) => {
     e.preventDefault();
     try{
-      let res = await axios.post("http://localhost:8080/login",loginData)
+      let res = await axios.post("https://myntra-backend-git5.onrender.com/login",loginData)
       localStorage.setItem("token",res.data.token)
       toast.success("Login Successful")
       router.push("/")

@@ -12,7 +12,7 @@ const page = () => {
   useEffect(() => {
     const callingData = async()=>{
       let token = localStorage.getItem("token")
-      let res = await axios.get("http://localhost:8080/show/wishlist",{
+      let res = await axios.get("https://myntra-backend-git5.onrender.com/show/wishlist",{
         headers:{
           authorization:`Bearer ${token}`
         }

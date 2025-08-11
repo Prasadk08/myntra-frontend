@@ -21,7 +21,7 @@ const CartPage = () => {
   useEffect(() => {
     const callingData = async()=>{
       let token = localStorage.getItem("token")
-      let res = await axios.get("http://localhost:8080/show/cart",{
+      let res = await axios.get("https://myntra-backend-git5.onrender.com/show/cart",{
         headers:{
           authorization:`Bearer ${token}`
         }
@@ -47,7 +47,7 @@ const CartPage = () => {
     
    try{
     let token = localStorage.getItem("token")
-    let res = await axios.post("http://localhost:8080/user/placeorder",{},{
+    let res = await axios.post("https://myntra-backend-git5.onrender.com/user/placeorder",{},{
         params:{totalBill:total},
         headers:{
           authorization:`Bearer ${token}`

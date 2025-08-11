@@ -24,7 +24,7 @@ const SignupPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      let res = await axios.post("http://localhost:8080/signup", formData);
+      let res = await axios.post("https://myntra-backend-git5.onrender.com/signup", formData);
       localStorage.setItem("token",res.data.token)
       toast.success("SignUp Successfull");
       router.push("/")

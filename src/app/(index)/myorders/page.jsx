@@ -19,7 +19,7 @@ const OrdersPage = () => {
           return;
         }
         let res = await axios.get(
-          `http://localhost:8080/user/myorders`,
+          `https://myntra-backend-git5.onrender.com/user/myorders`,
           {
             headers: {
               authorization: `Bearer ${token}`,
